@@ -1,0 +1,101 @@
+.card_container {
+  height: max-content;
+  // position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+.card {
+  width: max-content;
+  height: max-content;
+  border-radius: 14px;
+  padding: 10px;
+  position: relative;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.card .card-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #fff;
+  z-index: 10;
+  border-radius: 10px;
+  padding: 15px;
+  padding-top: 50px;
+}
+
+.card::after {
+  position: absolute;
+  content: attr(data-label);
+  padding: 10px;
+  right: -4px;
+  width: max-content;
+  background-color: #3e454d;
+  z-index: 12;
+  border-radius: 7px;
+  color: #fff;
+}
+
+.share-btn {
+  position: absolute;
+  bottom: -15px;
+  right: 170px;
+  z-index: 10000;
+}
+.share-btn span {
+  color: #e9fcf8;
+  cursor: pointer;
+}
+.share-btn a span {
+  width: max-content;
+  position: absolute;
+  bottom: 10px;
+  border: 1px solid transparent;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.6s;
+}
+#click:checked ~ .share-btn a span {
+  height: fit-content;
+  width: max-content;
+  font-size: 18px;
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+#click:checked ~ .share-btn a:nth-child(2) span {
+  width: max-content;
+  bottom: 0px;
+  left: 100px;
+  background: #5c636a;
+  border-color: #5c636a;
+}
+#click:checked ~ .share-btn a:nth-child(3) span {
+  width: max-content;
+  bottom: 45px;
+  left: 100px;
+  background: #5c636a;
+  border-color: #5c636a;
+}
+.share-btn a:nth-child(3) span {
+  width: max-content;
+  transition-delay: 0.2s;
+}
+#click:checked ~ .share-btn a:nth-child(4) span {
+  width: max-content;
+  background: #5c636a;
+  border-color: #5c636a;
+}
+.share-btn a:nth-child(4) span {
+  width: max-content;
+  transition-delay: 0.4s;
+}
+#click {
+  display: none;
+}

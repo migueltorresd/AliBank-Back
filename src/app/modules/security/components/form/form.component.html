@@ -1,0 +1,29 @@
+<div class="container-login">
+  <div class="row">
+    <div class="card">
+      <form id="form-login" class="box form-login" (ngSubmit)="singIn()">
+        <h1>Iniciar sesión</h1>
+        <p class="text-muted">Por favor ingresa tu correo y contraseña!</p>
+        <input
+          type="text"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Correo"
+        />
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Contraseña"
+        />
+        <input type="submit" form="form-login" name="" value="Login" href="#" />
+        <google-button
+          (click)="auth()"
+          [mensaje]="'iniciar sesión con'"
+        ></google-button>
+        <br />
+        <a class="text-light" routerLink="signup"> Registrarse</a>
+      </form>
+    </div>
+  </div>
+</div>

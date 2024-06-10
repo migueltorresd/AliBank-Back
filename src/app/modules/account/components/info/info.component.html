@@ -1,0 +1,26 @@
+<div class="">
+  <div class="box">
+    <p class="h-dash text-light">Tus cuentas</p>
+    <app-user-info class="float-end" [id]="AccountId"></app-user-info>
+    <div class="container-account">
+      <span class="m-2"><account-generate></account-generate></span>
+      <account-balance
+        class="d-flex flex-wrap mt-4"
+        (changeAccountId)="getAccountId($event)"
+      ></account-balance>
+    </div>
+    <br />
+    <p class="fst-italic textmuted text-white">Un banco para ti</p>
+    <br />
+    <div>
+      <div class="box2 mt-3">
+        <div class="d-flex mt-2 click-option" (click)="history()">
+          <div class="w-100 border-bottom">
+            <p class="">Ver historial de transacciones de {{ AccountId }}</p>
+            <p class="textmuted mb-2">ver movimientos de la cuenta</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

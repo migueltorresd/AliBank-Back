@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <pagination-controls
+      (pageChange)="p = $event"
+      previousLabel="Anterior"
+      nextLabel="Siguiente"
+    ></pagination-controls>
+    <div class="col-md-6">
+      <div class="card">
+        <div
+          class="list border-bottom bg-dark d-flex border-radius mb-1 justify-content-between"
+          *ngFor="
+            let deposit of historyDeposit
+              | paginate : { itemsPerPage: 5, currentPage: p }
+          "
+        >
+          <div class="d-flex flex-column ml-3 p-3">
+            <span class="text-light mb-1">Deposito</span>
+            <span class="text-light mb-1"
+              >Referencia: {{ deposit.id | separate }}</span
+            >
+            <small class="mb-1"
+              >Cantidad: {{ deposit.amount | currency }}</small
+            >
+            <small>Fecha: {{ deposit.dateTime | date : "dd/MM/yyyy" }}</small>
+          </div>
+        </div>
+        <div
+          class="list border-bottom bg-dark d-flex border-radius mb-1 justify-content-between"
+          *ngFor="
+            let transfer of historyTransfer
+              | paginate : { itemsPerPage: 5, currentPage: p }
+          "
+        >
+          <div class="d-flex flex-column ml-3 p-3">
+            <span class="text-light mb-1">Transferencia</span>
+            <span class="text-light mb-1"
+              >Referencia: {{ transfer.id | separate }}</span
+            >
+            <small class="mb-1"
+              >Cantidad: {{ transfer.amount | currency }}</small
+            >
+            <small>Fecha: {{ transfer.dateTime | date : "dd/MM/yyyy" }}</small>
+          </div>
+          <div class="card-bottom pt-3 px-3 mb-2">
+            <div class="">
+              <button
+                class="btn btn-secondary"
+                (click)="verTransferencia(transfer.id)"
+              >
+                Ver comprobante
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

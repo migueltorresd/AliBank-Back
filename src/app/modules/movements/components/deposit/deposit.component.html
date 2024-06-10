@@ -1,0 +1,71 @@
+<div class="container-login">
+  <div class="row">
+    <div class="card">
+      <form
+        id="transfer-login"
+        class="box form-login"
+        (ngSubmit)="createDeposit()"
+        [formGroup]="frmDeposit"
+      >
+        <h1>Deposito</h1>
+        <input
+          type="text"
+          name="accountId"
+          formControlName="accountId"
+          placeholder="Id de la cuenta"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmDeposit.get('accountId')?.hasError('required') &&
+            frmDeposit.get('accountId')?.touched
+          "
+        >
+          *El número de cuenta es obligatoria
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmDeposit.get('accountId')?.hasError('minlength') &&
+            frmDeposit.get('accountId')?.touched
+          "
+        >
+          *El número de cuenta es incorrecto
+        </div>
+        <input
+          type="text"
+          name="amount"
+          formControlName="amount"
+          placeholder="cuanto"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmDeposit.get('amount')?.hasError('required') &&
+            frmDeposit.get('amount')?.touched
+          "
+        >
+          *El valor es obligatorio
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmDeposit.get('amount')?.hasError('pattern') &&
+            frmDeposit.get('amount')?.touched
+          "
+        >
+          *El valor no es valido
+        </div>
+        <input
+          type="submit"
+          form="transfer-login"
+          name=""
+          value="enviar"
+          [disabled]="frmDeposit.invalid"
+          href="#"
+        />
+        <br />
+      </form>
+    </div>
+  </div>
+</div>

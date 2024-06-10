@@ -1,0 +1,29 @@
+<router-outlet></router-outlet>
+<div class="card_container">
+  <div class="card" data-label="Datos personales">
+    <div class="card-container" id="data">
+      <small>Nombre</small>
+      <h5 class="mb-0 text-dark mb-2">{{ customer.fullName }}</h5>
+      <small>Correo</small>
+      <h5 class="mb-0 text-dark mb-2">{{ customer.email }}</h5>
+      <small>Documento</small>
+      <h5 class="mb-0 text-dark mb-2">{{ customer.document }}</h5>
+      <small>Celular</small>
+      <h5 class="mb-0 text-dark mb-2">{{ customer.phone }}</h5>
+    </div>
+    <div class="content">
+      <input type="checkbox" id="click" />
+      <label for="click" class="share-btn">
+        <span class="btn btn-secondary">opciones</span>
+        <a href="/security/update"
+          ><span class="btn btn-dark">Actualizar Datos</span></a
+        >
+        <a
+          ><span class="btn btn-dark" (click)="eliminar()"
+            >Eliminar cuenta</span
+          ></a
+        >
+      </label>
+    </div>
+  </div>
+</div>

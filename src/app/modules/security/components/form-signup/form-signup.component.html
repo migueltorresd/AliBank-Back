@@ -1,0 +1,191 @@
+<div class="container-login">
+  <div class="row">
+    <div class="card">
+      <form
+        class="box form-login"
+        id="formRegister"
+        (ngSubmit)="registerCustomer()"
+        [formGroup]="frmSingUp"
+      >
+        <h1>Registrarse</h1>
+        <p class="text-muted">
+          Por favor ingrese todos los datos ya que son obligatorios!
+        </p>
+        <input
+          type="text"
+          name="fullName"
+          placeholder="Nombre completo"
+          formControlName="fullName"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('fullName')?.hasError('required') &&
+            frmSingUp.get('fullName')?.touched
+          "
+        >
+          *El nombre es obligatorio
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('fullName')?.hasError('minlength') &&
+            frmSingUp.get('fullName')?.touched
+          "
+        >
+          *El nombre debe tener mínimo 3 caracteres
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('fullName')?.hasError('maxlength') &&
+            frmSingUp.get('fullName')?.touched
+          "
+        >
+          *El nombre debe tener máximo, 500 caracteres
+        </div>
+        <select
+          id="document"
+          name="documentTypeId"
+          formControlName="documentTypeId"
+        >
+          <option
+            selected="true"
+            [selected]="true"
+            class="type-document"
+            disabled="disabled"
+          >
+            tipo de documento
+          </option>
+          <option
+            id="document"
+            class="text-dark"
+            type="text text-muted"
+            value="c822487e-5e89-4a49-98d5-50ce60b300b1"
+            selected
+          >
+            Cédula de ciudadanía
+          </option>
+          <option
+            id="document"
+            class="text-dark"
+            type="text text-muted"
+            value="64911806-283f-4e71-ab94-f9098e18cf9a"
+          >
+            Cédula de Extranjería
+          </option>
+        </select>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('documentTypeId')?.hasError('required') &&
+            frmSingUp.get('documentTypeId')?.touched
+          "
+        >
+          *El tipo de documento es obligatorio
+        </div>
+        <input
+          type="text"
+          name="document"
+          placeholder="documento"
+          formControlName="document"
+        />
+
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('document')?.hasError('required') &&
+            frmSingUp.get('document')?.touched
+          "
+        >
+          *El documento es obligatorio
+        </div>
+        <input
+          type="text"
+          name="phone"
+          placeholder="Celular"
+          formControlName="phone"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('phone')?.hasError('required') &&
+            frmSingUp.get('phone')?.touched
+          "
+        >
+          *El número es obligatorio
+        </div>
+        <input
+          type="text"
+          name="email"
+          placeholder="Correo"
+          formControlName="email"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('email')?.hasError('required') &&
+            frmSingUp.get('email')?.touched
+          "
+        >
+          *El correo es obligatorio
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('email')?.hasError('email') &&
+            frmSingUp.get('email')?.touched
+          "
+        >
+          *El correo no es valido
+        </div>
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          formControlName="password"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('password')?.hasError('required') &&
+            frmSingUp.get('password')?.touched
+          "
+        >
+          *La contraseña es obligatoria
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('password')?.hasError('minlength') &&
+            frmSingUp.get('password')?.touched
+          "
+        >
+          *La contraseña debe contener mínimo 8 caracteres
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmSingUp.get('password')?.hasError('pattern') &&
+            frmSingUp.get('password')?.touched
+          "
+        >
+          *La contraseña debe contener mínimo una mayúscula, una minúscula y un
+          número
+        </div>
+        <input
+          type="submit"
+          form="formRegister"
+          [disabled]="frmSingUp.invalid"
+          value="Register"
+        />
+        <google-button
+          *ngIf="google"
+          (click)="auth()"
+          [mensaje]="'registrase con'"
+        ></google-button>
+        <br />
+      </form>
+    </div>
+  </div>
+</div>

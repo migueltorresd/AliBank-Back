@@ -1,0 +1,107 @@
+<div class="container-login">
+  <div class="row">
+    <div class="card">
+      <form
+        id="transfer-login"
+        class="box form-login"
+        (ngSubmit)="createTransfer()"
+        [formGroup]="frmTransfer"
+      >
+        <h1>Transferencia</h1>
+        <p class="text-muted">
+          mientras realiza la transacción no recargué la página!
+        </p>
+        <input
+          type="text"
+          name="inComeId"
+          formControlName="inComeId"
+          placeholder="Id de la cuenta"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmTransfer.get('inComeId')?.hasError('required') &&
+            frmTransfer.get('inComeId')?.touched
+          "
+        >
+          *El número de cuenta es obligatoria
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmTransfer.get('inComeId')?.hasError('minlength') &&
+            frmTransfer.get('inComeId')?.touched
+          "
+        >
+          *El número de cuenta es incorrecto
+        </div>
+        <input
+          type="text"
+          name="amount"
+          formControlName="amount"
+          placeholder="cuanto"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmTransfer.get('amount')?.hasError('required') &&
+            frmTransfer.get('amount')?.touched
+          "
+        >
+          *El valor es obligatorio
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmTransfer.get('amount')?.hasError('pattern') &&
+            frmTransfer.get('amount')?.touched
+          "
+        >
+          *El valor no es valido
+        </div>
+        <input
+          type="text"
+          name="reason"
+          formControlName="reason"
+          placeholder="Razón de la transferencia"
+        />
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmTransfer.get('reason')?.hasError('required') &&
+            frmTransfer.get('reason')?.touched
+          "
+        >
+          *La razón de la transferencia es obligatoria
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmTransfer.get('reason')?.hasError('minLength') &&
+            frmTransfer.get('reason')?.touched
+          "
+        >
+          *La razón de la transferencia es de mínimo un carácter
+        </div>
+        <div
+          class="text-danger div-alert"
+          *ngIf="
+            frmTransfer.get('reason')?.hasError('maxLength') &&
+            frmTransfer.get('reason')?.touched
+          "
+        >
+          *La razón de la transferencia es de máximo 500 carácter
+        </div>
+        <input
+          type="submit"
+          form="transfer-login"
+          name=""
+          value="enviar"
+          [disabled]="frmTransfer.invalid"
+          href="#"
+        />
+        <br />
+      </form>
+    </div>
+  </div>
+</div>
