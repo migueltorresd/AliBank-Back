@@ -1,27 +1,18 @@
-# C12023AngularFrontendColombia
+# Alibank Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0.
+Este proyecto es el frontend de Alibank, una aplicación bancaria diseñada para proporcionar una experiencia completa de usuario en la gestión de servicios financieros. La aplicación está construida con Angular, utilizando la versión 14.2.0 del Angular CLI.
 
-## Development server
+## Descripción del Proyecto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Alibank es una plataforma que permite a los usuarios gestionar sus cuentas bancarias, realizar transacciones y acceder a diversas funcionalidades bancarias de manera segura y eficiente. El objetivo del proyecto es aprender y aplicar tecnologías clave utilizadas en el sector bancario.
 
-## Code scaffolding
+## Características Principales
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Autenticación y Autorización**: Implementación de sistemas seguros de inicio de sesión y control de acceso basado en roles.
+- **Gestión de Cuentas**: Permite a los usuarios ver y gestionar sus cuentas bancarias.
+- **Transacciones**: Realización de transferencias y pagos de manera segura.
+- **Notificaciones por Correo**: Envío de correos electrónicos para verificación de cuenta y notificaciones importantes.
 
-## Build
+## Servidor de Desarrollo
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Ejecuta `ng serve` para iniciar un servidor de desarrollo. Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si cambias cualquiera de los archivos fuente.
