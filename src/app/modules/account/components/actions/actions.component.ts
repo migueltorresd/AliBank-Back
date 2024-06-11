@@ -15,20 +15,27 @@ export class ActionsComponent {
     private readonly router: Router,
     private readonly accountService: AccountService
   ) {}
+
+  // Entradas para el componente
   @Input() id!: string;
   @Input() length!: number;
+
   /**
-   * It sets the customer id in the transfer service and navigates to the transfer page
+   * Establece el ID del cliente en el servicio de transferencia y navega a la página de transferencia.
    */
   transferencia() {
+    // Establecer el ID del cliente en el servicio de transferencia
     this.transferService.setCustomerOut(this.id);
+    // Navegar a la página de transferencia
     this.router.navigate(['movements/transfer']);
   }
+
   /**
-   * It opens a modal window that asks the user for the amount of money to withdraw, then it sends a
-   * request to the backend to withdraw that amount of money from the account
+   * Abre una ventana modal que solicita al usuario la cantidad de dinero a retirar, luego envía una solicitud
+   * al backend para retirar esa cantidad de dinero de la cuenta.
    */
   retirarDinero() {
+    // Abrir la ventana modal de Swal para solicitar la cantidad de dinero a retirar
     Swal.fire({
       title: 'Ingresa el dinero a retirar',
       input: 'text',
@@ -38,13 +45,15 @@ export class ActionsComponent {
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
+        // Enviar una solicitud al servicio de cuenta para retirar el dinero
         this.accountService
           .removeBalance(
             sessionStorage.getItem('accountId') as string,
-            result.value
+            result.value // Cantidad de dinero a retirar
           )
           .subscribe({
             next: (value) => {
+              // Si la operación es exitosa, mostrar un mensaje de éxito y recargar la página
               if (value) {
                 Swal.fire({
                   title: 'Dinero retirado',
@@ -54,6 +63,7 @@ export class ActionsComponent {
                   window.location.reload();
                 }, 1500);
               } else {
+                // Si hay un error, mostrar un mensaje de saldo insuficiente
                 Swal.fire({
                   title: 'Saldo insuficiente',
                   confirmButtonColor: '#dc3545',
@@ -61,6 +71,7 @@ export class ActionsComponent {
               }
             },
             error: (err) => {
+              // Si hay un error en la solicitud, mostrar el mensaje de error devuelto por el backend
               Swal.fire(err.error.message);
             },
           });

@@ -1,19 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { DepositInterface } from '../../interfaces/Deposit.deposit';
+import { Observable } from 'rxjs';
 import { TransferInterface } from '../../interfaces/transfer.interface';
 import { HistoryModel } from '../../models/history.model';
+import { environment } from 'src/environments/environment';
+import { DepositInterface } from '../../interfaces/Deposit.deposit';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HistoryService {
   constructor(private readonly httpClient: HttpClient) {}
+
   /**
-   * This function is used to get all the deposits of a user
-   * @param {HistoryModel} history - HistoryModel
-   * @returns An array of DepositInterface objects.
+   * Obtiene todos los depósitos de un usuario.
+   * @param {HistoryModel} history - El objeto que contiene la información histórica del usuario.
+   * @returns Un Observable que emite un array de objetos de tipo DepositInterface.
    */
   getDepositAll(history: HistoryModel): Observable<DepositInterface[]> {
     const httpOptions = {
@@ -22,16 +24,16 @@ export class HistoryService {
       }),
     };
     return this.httpClient.post<DepositInterface[]>(
-      'http://localhost:3000/deposit/all',
+      `${environment.apiUrl}/deposit/all`,
       history,
       httpOptions
     );
   }
 
   /**
-   * This function is used to get all the transfers of a specific user
-   * @param {HistoryModel} history - HistoryModel
-   * @returns An array of TransferInterface objects.
+   * Obtiene todas las transferencias de un usuario específico.
+   * @param {HistoryModel} history - El objeto que contiene la información histórica del usuario.
+   * @returns Un Observable que emite un array de objetos de tipo TransferInterface.
    */
   getTransferAll(history: HistoryModel): Observable<TransferInterface[]> {
     const httpOptions = {
@@ -40,16 +42,16 @@ export class HistoryService {
       }),
     };
     return this.httpClient.post<TransferInterface[]>(
-      'http://localhost:3000/transfer/history',
+      `${environment.apiUrl}/transfer/history`,
       history,
       httpOptions
     );
   }
+
   /**
-   * This function is used to get all the income transfers of a user
-   * @param {HistoryModel} history - HistoryModel - this is the object that contains the user's id and
-   * the date range.
-   * @returns An array of TransferInterface objects.
+   * Obtiene todas las transferencias entrantes de un usuario.
+   * @param {HistoryModel} history - El objeto que contiene el id del usuario y el rango de fechas.
+   * @returns Un Observable que emite un array de objetos de tipo TransferInterface.
    */
   getTransferAllIn(history: HistoryModel): Observable<TransferInterface[]> {
     const httpOptions = {
@@ -58,17 +60,16 @@ export class HistoryService {
       }),
     };
     return this.httpClient.post<TransferInterface[]>(
-      'http://localhost:3000/transfer/income',
+      `${environment.apiUrl}/transfer/income`,
       history,
       httpOptions
     );
   }
+
   /**
-   * It sends a request to the server to get all the transfers that have been made from the user's
-   * account
-   * @param {HistoryModel} history - HistoryModel - this is the object that contains the data that will
-   * be sent to the server.
-   * @returns An array of TransferInterface objects.
+   * Obtiene todas las transferencias salientes de la cuenta de un usuario.
+   * @param {HistoryModel} history - El objeto que contiene los datos que se enviarán al servidor.
+   * @returns Un Observable que emite un array de objetos de tipo TransferInterface.
    */
   getTransferAllOut(history: HistoryModel): Observable<TransferInterface[]> {
     const httpOptions = {
@@ -77,7 +78,7 @@ export class HistoryService {
       }),
     };
     return this.httpClient.post<TransferInterface[]>(
-      'http://localhost:3000/transfer/outcome',
+      `${environment.apiUrl}/transfer/outcome`,
       history,
       httpOptions
     );

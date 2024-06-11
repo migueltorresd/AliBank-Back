@@ -9,17 +9,24 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
 
+/**
+ * Guardia de ruta que protege las rutas de acceso a usuarios autenticados.
+ * Redirige a la página de la cuenta si el usuario está autenticado.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
-/**
- * If the user is logged in, navigate to the account page and return false. Otherwise, return true
- * @param {ActivatedRouteSnapshot} route - ActivatedRouteSnapshot - The route that is being activated.
- * @param {RouterStateSnapshot} state - RouterStateSnapshot - The current router state
- * @returns A boolean value.
- */
+
+  /**
+   * Verifica si el usuario está autenticado.
+   * Si el usuario está autenticado, redirige a la página de la cuenta y devuelve false.
+   * De lo contrario, devuelve true.
+   * @param {ActivatedRouteSnapshot} route - La ruta que se está activando.
+   * @param {RouterStateSnapshot} state - El estado actual del enrutador.
+   * @returns Un valor booleano o un UrlTree.
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

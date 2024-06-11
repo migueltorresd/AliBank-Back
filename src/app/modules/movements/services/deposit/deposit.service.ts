@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DepositModel } from '../../../main/Models/deposit.model';
+import { environment } from 'src/environments/environment';
 import { DepositInterface } from '../../interfaces/Deposit.deposit';
+import { DepositModel } from 'src/app/modules/main/Models/deposit.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DepositService {
-  // El constructor inyecta el servicio HttpClient para realizar solicitudes HTTP.
   constructor(private readonly httpClient: HttpClient) {}
 
   /**
@@ -18,7 +18,7 @@ export class DepositService {
    */
   createDeposit(deposit: DepositModel): Observable<DepositInterface> {
     return this.httpClient.post<DepositInterface>(
-      'http://localhost:3000/deposit/', // URL del endpoint de creación de depósitos
+      `${environment.apiUrl}/deposit/`, // URL del endpoint de creación de depósitos
       deposit // Datos del depósito que se enviarán en el cuerpo de la solicitud POST
     );
   }
@@ -36,7 +36,7 @@ export class DepositService {
       }),
     };
     return this.httpClient.get<DepositInterface>(
-      'http://localhost:3000/transfer/select/' + depositId, // URL del endpoint para obtener el depósito, concatenando el ID del depósito
+      `${environment.apiUrl}/deposit/${depositId}`, // URL del endpoint para obtener el depósito, concatenando el ID del depósito
       httpOptions // Opciones HTTP que incluyen los encabezados
     );
   }

@@ -32,19 +32,12 @@ export class HistoryComponent implements OnInit {
     this.historyDeposit = new Array<DepositInterface>();
     this.historyTransfer = new Array<TransferInterface>();
   }
-  /**
-   * The function verTransferencia() is called when the user clicks on the button "Ver" in the table of
-   * transfers. The function receives the id of the transfer and sets it in the service
-   * TransferService. Then, the function navigates to the component VaucherComponent
-   * @param {string} id - string
-   */
+ 
   verTransferencia(id: string) {
     this.transferService.setTransferId(id);
     this.router.navigate(['movements/vaucher']);
   }
-  /**
-   * A function that is executed when the component is initialized.
-   */
+
   ngOnInit(): void {
     if (this.accountId != '')
       sessionStorage.setItem('AccountId', this.accountId);

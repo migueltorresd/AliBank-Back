@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CustomersService } from 'src/app/modules/security/services/customer/customers.service';
 import Swal from 'sweetalert2';
-import { AccountInterface } from '../../interfaces/account.interface';
 import { AccountService } from '../../services/account/account.service';
+import { AccountInterface } from '../../interfaces/account.interface';
 
 @Component({
   selector: 'account-balance',
@@ -12,17 +12,19 @@ import { AccountService } from '../../services/account/account.service';
 export class BalanceComponent implements OnInit {
   accounts: AccountInterface[];
   customerId = '';
+
   @Output() changeAccountId = new EventEmitter<string>();
+
   constructor(
     private readonly accountService: AccountService,
     private customerService: CustomersService
   ) {
     this.accounts = new Array<AccountInterface>();
   }
+
   /**
-   * The function accionesModal() takes a string as an argument and displays a modal with the string as
-   * the title
-   * @param {string} accountId - string
+   * La función `accionesModal()` toma un string como argumento y muestra un modal con el string como título.
+   * @param {string} accountId - El ID de la cuenta.
    */
   accionesModal(accountId: string) {
     Swal.fire({
@@ -33,9 +35,10 @@ export class BalanceComponent implements OnInit {
       timer: 1500,
     });
   }
+
   /**
-   * It selects the account with the given id and deselects all other accounts
-   * @param {string} accountId - string - The account ID of the account that was selected.
+   * Selecciona la cuenta con el ID dado y deselecciona todas las demás cuentas.
+   * @param {string} accountId - El ID de la cuenta seleccionada.
    */
   seleccionar(accountId: string) {
     const account = this.accounts.find((data) => data.id === accountId);
@@ -47,9 +50,10 @@ export class BalanceComponent implements OnInit {
       if (data.id !== accountId) data.selected = false;
     });
   }
+
   /**
-   * The function gets the customerId from local storage, then calls the accountService to get all
-   * accounts for the customer, and then assigns the accounts to the accounts variable
+   * La función obtiene el customerId del almacenamiento local, luego llama al accountService para obtener
+   * todas las cuentas del cliente, y luego asigna las cuentas a la variable `accounts`.
    */
   ngOnInit(): void {
     this.customerId = localStorage.getItem('id') as string;

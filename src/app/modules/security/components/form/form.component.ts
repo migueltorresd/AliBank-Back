@@ -22,15 +22,16 @@ export class FormComponent {
     this.email = '';
     this.password = '';
   }
+
   /**
-   * This function is responsible for logging in with Google, it is called when the user clicks on the
-   * Google button, it calls the GoogleAuth() function of the authService, which returns a promise, if
-   * the promise is resolved, it stores the user's email in sessionStorage, then it calls the
-   * getCustomerByEmail() function of the customerService, which returns a promise, if the promise is
-   * resolved, it stores the user's id in localStorage, then it calls the singIn() function of the
-   * customerService, which returns a promise, if the promise is resolved, it stores the user's
-   * access_token in localStorage, then it displays a message to the user, and finally it redirects the
-   * user to the account page
+   * Esta función se encarga de iniciar sesión con Google. Se llama cuando el usuario hace clic en el
+   * botón de Google. Llama a la función `GoogleAuth()` de `authService`, que devuelve una promesa. Si
+   * la promesa se resuelve, almacena el correo electrónico del usuario en `sessionStorage`, luego
+   * llama a la función `getCustomerByEmail()` de `customerService`, que devuelve una promesa. Si la
+   * promesa se resuelve, almacena el ID del usuario en `localStorage`, luego llama a la función
+   * `singIn()` de `customerService`, que devuelve una promesa. Si la promesa se resuelve, almacena el
+   * access_token del usuario en `localStorage`, luego muestra un mensaje al usuario, y finalmente
+   * redirige al usuario a la página de la cuenta.
    */
   auth(): void {
     this.authService.GoogleAuth().then((Response) => {
@@ -106,9 +107,10 @@ export class FormComponent {
       );
     });
   }
+
   /**
-   * It takes the email and password from the form, creates a new customer object, and sends it to the
-   * customer service to be validated
+   * Toma el correo electrónico y la contraseña del formulario, crea un nuevo objeto de cliente, y lo
+   * envía al servicio de clientes para ser validado.
    */
   singIn(): void {
     const customer = new singInModel(this.email, this.password);

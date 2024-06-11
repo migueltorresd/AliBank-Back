@@ -13,16 +13,17 @@ export class GenerateComponent {
     private readonly accountService: AccountService,
     private router: Router
   ) {}
+
   /**
-   * The function takes an accountTypeId as a parameter, and then calls the createAccount function from
-   * the accountService, which takes the accountTypeId and the userId as parameters, and then
-   * subscribes to the observable returned by the createAccount function
-   * @param {string} accountTypeId - string
+   * Registra una nueva cuenta para el usuario actual.
+   * @param {string} accountTypeId - El ID del tipo de cuenta que se desea crear.
    */
   registerAccount(accountTypeId: string): void {
+    // Llama a la función createAccount del servicio de cuenta para crear una nueva cuenta
     const newCustomer = this.accountService
       .createAccount(accountTypeId, localStorage.getItem('id') as string)
       .subscribe({
+        // Maneja el error mostrando un mensaje de error
         error: (err) => {
           Swal.fire({
             position: 'top-end',
@@ -32,11 +33,12 @@ export class GenerateComponent {
             timer: 3500,
           });
         },
+        // Maneja la finalización exitosa mostrando un mensaje de éxito y recargando la página
         complete: () => {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'cuenta creada',
+            title: 'Cuenta creada',
             showConfirmButton: false,
             timer: 1500,
           });

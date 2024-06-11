@@ -13,14 +13,15 @@ export class UserInfoComponent implements OnInit {
   customer!: CustomerInterface;
   delete = false;
   AccountId!: string;
+
   constructor(
     private readonly customerService: CustomersService,
     private readonly router: Router
   ) {}
 
   /**
-   * It checks if the user has a balance of 0 in all his accounts, if so, it allows him to delete his
-   * account, if not, it shows a warning message
+   * Verifica si el usuario tiene un saldo de 0 en todas sus cuentas. Si es así, le permite eliminar su cuenta;
+   * de lo contrario, muestra un mensaje de advertencia.
    */
   eliminar() {
     this.customerService
@@ -40,11 +41,11 @@ export class UserInfoComponent implements OnInit {
             });
           } else {
             Swal.fire({
-              title: '¿Estas seguro de eliminar tu cuenta?',
+              title: '¿Estás seguro de eliminar tu cuenta?',
               showDenyButton: true,
               showCancelButton: true,
               confirmButtonColor: '#2ecc71',
-              confirmButtonText: 'Si, estoy seguro',
+              confirmButtonText: 'Sí, estoy seguro',
               denyButtonText: `Cancelar`,
             }).then((result) => {
               if (result.isConfirmed) {
@@ -84,8 +85,9 @@ export class UserInfoComponent implements OnInit {
         },
       });
   }
+
   /**
-   * The function gets the customer data from the server and assigns it to the customer property
+   * La función obtiene los datos del cliente desde el servidor y los asigna a la propiedad `customer`.
    */
   ngOnInit(): void {
     this.customerService

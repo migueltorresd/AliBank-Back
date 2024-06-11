@@ -3,112 +3,141 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TransferInterface } from '../../interfaces/transfer.interface';
 import { TransferModel } from '../../models/transfer.model';
+import { environment } from 'src/environments/environment';
 
+/**
+ * Servicio para manejar las operaciones relacionadas con las transferencias de dinero.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class TransferService {
-  outComeId = new BehaviorSubject<string>('');
-  inComeId = new BehaviorSubject<string>('');
-  transferId = new BehaviorSubject<string>('');
   /**
-   * The function takes a customerId as a parameter and then uses the next() method to pass the
-   * customerId to the outComeId subject
-   * @param {string} customerId - string - The customer ID that we want to pass to the customer-details
-   * component.
+   * BehaviorSubject para almacenar el ID de salida de la transferencia.
+   */
+  outComeId = new BehaviorSubject<string>('');
+
+  /**
+   * BehaviorSubject para almacenar el ID de entrada de la transferencia.
+   */
+  inComeId = new BehaviorSubject<string>('');
+
+  /**
+   * BehaviorSubject para almacenar el ID de la transferencia.
+   */
+  transferId = new BehaviorSubject<string>('');
+
+  constructor(private readonly httpClient: HttpClient) {}
+
+  /**
+   * Establece el ID del cliente de salida para una transferencia.
+   * @param customerId El ID del cliente de salida.
    */
   setCustomerOut(customerId: string) {
     this.outComeId.next(customerId);
   }
+  
   /**
-   * It takes a string as an argument and sets the value of the transferId property to the value of the
-   * argument
-   * @param {string} transferId - The ID of the transfer.
+   * Establece el ID de la transferencia.
+   * @param transferId El ID de la transferencia.
    */
   setTransferId(transferId: string) {
     this.transferId.next(transferId);
   }
+  
   /**
-   * The function takes a customerId as a parameter and then uses the next() method to pass the
-   * customerId to the inComeId subject
-   * @param {string} customerId - The customer ID that you want to pass to the other component.
+   * Establece el ID del cliente de entrada para una transferencia.
+   * @param customerId El ID del cliente de entrada.
    */
   setCustomerIn(customerId: string) {
     this.inComeId.next(customerId);
   }
+
   /**
-   * The function returns an observable of type string
-   * @returns Observable<string>
+   * Obtiene un Observable para el ID del cliente de salida.
+   * @returns Un Observable que emite el ID del cliente de salida.
    */
   getCustomerObservOut(): Observable<string> {
     return this.outComeId.asObservable();
   }
+  
   /**
-   * It returns an observable that emits the value of the transferId subject
-   * @returns An observable of type string.
+   * Obtiene un Observable para el ID de la transferencia.
+   * @returns Un Observable que emite el ID de la transferencia.
    */
   getTransferIdObserv(): Observable<string> {
     return this.transferId.asObservable();
   }
+
   /**
-   * It returns the value of the transferId subject
-   * @returns The value of the transferId property.
+   * Obtiene el valor actual del ID de la transferencia.
+   * @returns El valor actual del ID de la transferencia.
    */
   getTransferIdSubject() {
     return this.transferId.getValue();
   }
+ 
   /**
-   * This function returns the value of the outComeId property
-   * @returns The value of the outComeId property.
+   * Obtiene el valor actual del ID del cliente de salida.
+   * @returns El valor actual del ID del cliente de salida.
    */
   getCustomerSubjectOut() {
     return this.outComeId.getValue();
   }
+
   /**
-   * The function returns an observable of type string
-   * @returns Observable<string>
+   * Obtiene un Observable para el ID del cliente de entrada.
+   * @returns Un Observable que emite el ID del cliente de entrada.
    */
   getCustomerObservIn(): Observable<string> {
     return this.inComeId.asObservable();
   }
+ 
   /**
-   * This function returns the value of the inComeId property
-   * @returns The value of the inComeId property.
+   * Obtiene el valor actual del ID del cliente de entrada.
+   * @returns El valor actual del ID del cliente de entrada.
    */
   getCustomerSubjectIn() {
     return this.inComeId.getValue();
   }
-  constructor(private readonly httpClient: HttpClient) {}
+
   /**
-   * This function creates a new transfer and returns an observable of type TransferInterface
-   * @param {TransferModel} transfer - TransferModel - this is the model that we created earlier.
-   * @returns Observable<TransferInterface>
+   * Crea una nueva transferencia.
+   * @param transfer La transferencia a crear.
+   * @returns Un Observable que emite la transferencia creada.
    */
   createTransfer(transfer: TransferModel): Observable<TransferInterface> {
+    // Configuración de opciones HTTP con el token de autorización
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `access_token ${localStorage.getItem('access_token')}`,
       }),
     };
+
+    // Realiza una solicitud POST a la URL de transferencia utilizando la API URL del entorno
     return this.httpClient.post<TransferInterface>(
-      'http://localhost:3000/transfer/',
+      `${environment.apiUrl}/transfer/`,
       transfer,
       httpOptions
     );
   }
+
   /**
-   * It returns an observable of type TransferInterface
-   * @param {string} transferId - The id of the transfer you want to get.
-   * @returns The transfer object with the given transferId.
+   * Obtiene una transferencia específica por su ID.
+   * @param transferId El ID de la transferencia a obtener.
+   * @returns Un Observable que emite la transferencia obtenida.
    */
   getTransfer(transferId: string): Observable<TransferInterface> {
+    // Configuración de opciones HTTP con el token de autorización
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `access_token ${localStorage.getItem('access_token')}`,
       }),
     };
+
+    // Realiza una solicitud GET a la URL de selección de transferencia utilizando la API URL del entorno
     return this.httpClient.get<TransferInterface>(
-      'http://localhost:3000/transfer/select/' + transferId,
+      `${environment.apiUrl}/transfer/select/${transferId}`,
       httpOptions
     );
   }

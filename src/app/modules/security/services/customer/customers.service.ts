@@ -7,42 +7,59 @@ import { singInModel } from '../../models/sing-in.model';
 import { SingInInterface } from '../../interfaces/sing-in.interface';
 import { CustomerInterface } from '../../interfaces/customer.interface';
 import { UpdateCustomer } from '../../models/update-customer.mode';
+import { environment } from 'src/environments/environment';
 
+/**
+ * Servicio para manejar operaciones relacionadas con clientes.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class CustomersService {
   customerId = new BehaviorSubject<string>('');
+
   /**
-   * It takes a customerId as a parameter and then calls the next() function on the customerId property
-   * of the BehaviorSubject class
-   * @param {string} customerId - The customer ID to set.
+   * Establece el ID del cliente.
+   * @param customerId El ID del cliente que se establecerá.
    */
   setCustomer(customerId: string) {
     this.customerId.next(customerId);
   }
+
+  /**
+   * Obtiene un Observable para el ID del cliente.
+   * @returns Un Observable que emite el ID del cliente.
+   */
   getCustomerObserv(): Observable<string> {
     return this.customerId.asObservable();
   }
+
   /**
-   * It returns the current value of the customerId BehaviorSubject.
-   * @returns The customerId property of the Customer object.
+   * Obtiene el valor actual del ID del cliente.
+   * @returns El valor actual del ID del cliente.
    */
   getCustomerSubject() {
     return this.customerId.getValue();
   }
+
   constructor(private readonly httpClient: HttpClient) {}
+
+  /**
+   * Crea un nuevo cliente.
+   * @param customer Los datos del cliente que se va a crear.
+   * @returns Un Observable que emite un objeto de tipo SingUpInterface.
+   */
   createCustomer(customer: CustomerModel): Observable<SingUpInterface> {
-    let response = this.httpClient.post<SingUpInterface>(
-      'http://localhost:3000/security/sign-up',
+    return this.httpClient.post<SingUpInterface>(
+      `${environment.apiUrl}/security/sign-up`,
       customer
     );
-    return response;
   }
+
   /**
-   * It deletes a customer from the database
-   * @param {string} customerId - The id of the customer to be deleted.
-   * @returns A boolean
+   * Elimina un cliente de la base de datos.
+   * @param customerId El ID del cliente que se va a eliminar.
+   * @returns Un Observable que emite un valor booleano indicando si la operación fue exitosa.
    */
   delete(customerId: string): Observable<boolean> {
     const httpOptions = {
@@ -50,12 +67,18 @@ export class CustomersService {
         Authorization: `access_token ${localStorage.getItem('access_token')}`,
       }),
     };
-    let response = this.httpClient.delete<boolean>(
-      'http://localhost:3000/user/' + customerId,
+    return this.httpClient.delete<boolean>(
+      `${environment.apiUrl}/user/${customerId}`,
       httpOptions
     );
-    return response;
   }
+
+  /**
+   * Actualiza los datos de un cliente.
+   * @param customer Los nuevos datos del cliente.
+   * @param customerId El ID del cliente que se va a actualizar.
+   * @returns Un Observable que emite un objeto de tipo CustomerInterface con los datos actualizados del cliente.
+   */
   updateCustomer(
     customer: UpdateCustomer,
     customerId: string
@@ -65,17 +88,17 @@ export class CustomersService {
         Authorization: `access_token ${localStorage.getItem('access_token')}`,
       }),
     };
-    let response = this.httpClient.put<CustomerInterface>(
-      'http://localhost:3000/user/' + customerId,
+    return this.httpClient.put<CustomerInterface>(
+      `${environment.apiUrl}/user/${customerId}`,
       customer,
       httpOptions
     );
-    return response;
   }
+
   /**
-   * This function is used to get the amount of a customer
-   * @param {string} customerId - The customer's ID.
-   * @returns A boolean value.
+   * Obtiene la cantidad de un cliente.
+   * @param customerId El ID del cliente.
+   * @returns Un Observable que emite un valor booleano indicando si la operación fue exitosa.
    */
   getCustomerBoolean(customerId: string): Observable<boolean> {
     const httpOptions = {
@@ -83,45 +106,43 @@ export class CustomersService {
         Authorization: `access_token ${localStorage.getItem('access_token')}`,
       }),
     };
-    let response = this.httpClient.get<boolean>(
-      'http://localhost:3000/account/amount/' + customerId,
+    return this.httpClient.get<boolean>(
+      `${environment.apiUrl}/account/amount/${customerId}`,
       httpOptions
     );
-    return response;
   }
+
   /**
-   * It takes a string as a parameter, and returns an Observable of type CustomerInterface
-   * @param {string} customer - string
-   * @returns The response is an observable of type CustomerInterface.
+   * Obtiene un cliente por correo electrónico.
+   * @param customer El correo electrónico del cliente.
+   * @returns Un Observable que emite un objeto de tipo CustomerInterface con los datos del cliente.
    */
   getCustomerByEmail(customer: string): Observable<CustomerInterface> {
-    let response = this.httpClient.get<CustomerInterface>(
-      'http://localhost:3000/user/email/' + customer
+    return this.httpClient.get<CustomerInterface>(
+      `${environment.apiUrl}/user/email/${customer}`
     );
-    return response;
   }
+
   /**
-   * It returns an Observable of type CustomerInterface
-   * @param {string} customerId - string
-   * @returns An observable of type CustomerInterface
+   * Obtiene un cliente por su ID.
+   * @param customerId El ID del cliente.
+   * @returns Un Observable que emite un objeto de tipo CustomerInterface con los datos del cliente.
    */
   getCustomerById(customerId: string): Observable<CustomerInterface> {
-    let response = this.httpClient.get<CustomerInterface>(
-      'http://localhost:3000/user/' + customerId
+    return this.httpClient.get<CustomerInterface>(
+      `${environment.apiUrl}/user/${customerId}`
     );
-    return response;
   }
+
   /**
-   * The function takes a customer object as a parameter, sends it to the server, and returns an
-   * observable of type SingInInterface
-   * @param {singInModel} customer - singInModel - the model that we created in the previous step.
-   * @returns The response is being returned.
+   * Inicia sesión de un cliente.
+   * @param customer Los datos del cliente para iniciar sesión.
+   * @returns Un Observable que emite un objeto de tipo SingInInterface con los datos de inicio de sesión.
    */
   singIn(customer: singInModel): Observable<SingInInterface> {
-    let response = this.httpClient.post<SingInInterface>(
-      'http://localhost:3000/security/sign-in',
+    return this.httpClient.post<SingInInterface>(
+      `${environment.apiUrl}/security/sign-in`,
       customer
     );
-    return response;
   }
 }

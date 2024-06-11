@@ -5,21 +5,30 @@ import Swal from 'sweetalert2';
 import { CustomersService } from '../../services/customer/customers.service';
 import { AuthService } from '../../services/auth/auth.service';
 
+/**
+ * Componente que representa el formulario de registro de una cuenta.
+ * Permite a los usuarios registrarse utilizando su correo electrónico y contraseña, o a través de su cuenta de Google.
+ */
 @Component({
   selector: 'account-form-signup',
   templateUrl: './form-signup.component.html',
   styleUrls: ['./form-signup.component.scss'],
 })
 export class FormSignupComponent {
+  // Formulario de registro
   frmSingUp: FormGroup;
+  // Variable que indica si se ha iniciado sesión con Google
   google = true;
+  // Sesión de Google
   googleSession = this.authService.getGoogleSubjectOut();
+
   constructor(
     private readonly customerService: CustomersService,
     private router: Router,
     private readonly authService: AuthService,
     private frmBuilder: FormBuilder
   ) {
+    // Inicializa el formulario utilizando FormBuilder
     this.frmSingUp = this.frmBuilder.group({
       documentTypeId: ['', [Validators.required]],
       document: ['', Validators.required],
@@ -45,14 +54,13 @@ export class FormSignupComponent {
       ],
     });
   }
+
   /**
-   * The function auth() is called when the user clicks on the Google button, which calls the
-   * GoogleAuth() function in the authService service, which returns a response that is stored in the
-   * sessionStorage, and then the form is filled with the data obtained from the response
+   * Se activa cuando el usuario hace clic en el botón de Google.
+   * Llama a GoogleAuth() del servicio de autenticación, almacena la respuesta en sessionStorage y completa el formulario con los datos recibidos.
    */
   auth(): void {
     this.authService.GoogleAuth().then((Response) => {
-      console.log(Response);
       sessionStorage.setItem(
         'googleUserEmail',
         JSON.stringify(Response.additionalUserInfo?.profile)
@@ -67,11 +75,11 @@ export class FormSignupComponent {
       this.google = false;
     });
   }
+
   /**
-   * A function that is responsible for registering a new customer.
+   * Registra un nuevo cliente.
    */
   registerCustomer(): void {
-    debugger;
     if (this.google) {
       this.authService.SignUp(
         this.frmSingUp.get('email')?.getRawValue(),
@@ -79,7 +87,7 @@ export class FormSignupComponent {
       );
       this.authService.isEmail(this.frmSingUp.get('email')?.getRawValue());
     }
-    this.frmSingUp.get('documentTypeId');
+
     const newCustomer = this.customerService
       .createCustomer(this.frmSingUp.getRawValue())
       .subscribe({
