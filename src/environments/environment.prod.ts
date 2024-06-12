@@ -7,6 +7,6 @@ export const environment = {
     authDomain: 'alibank.firebaseapp.com',
     messagingSenderId: '974227302871',
   },
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'https://alibank.onrender.com',
   production: true,
 };
