@@ -1,56 +1,52 @@
-@for $i from 0 through 10{
-        .share-btn {
-          position: absolute;
-          bottom: 45px;
-          right: 30px;
-          z-index: 1;
-        }
-        .share-btn span {
-          color: #e9fcf8;
-          cursor: pointer;
-        }
-        .share-btn a span {
-          position: absolute;
-          left: 5px;
-          bottom: 10px;
-          border: 1px solid transparent;
-          z-index: -1;
-          opacity: 0;
-          pointer-events: none;
-          transition: 0.6s;
-        }
-        #click#{$i}:checked ~ .share-btn a span {
-          height: fit-content;
-          width: max-content;
-          font-size: 18px;
-          z-index: 1;
-          opacity: 1;
-          pointer-events: auto;
-        }
-        #click#{$i}:checked ~ .share-btn a:nth-child(2) span {
-          bottom: 0px;
-          left: 60px;
-          background: #5c636a;
-          border-color: #5c636a;
-        }
-        #click#{$i}:checked ~ .share-btn a:nth-child(3) span {
-          bottom: 45px;
-          left: 60px;
-          background: #5c636a;
-          border-color: #5c636a;
-        }
-        .share-btn a:nth-child(3) span {
-          width: max-content;
-          transition-delay: 0.2s;
-        }
-        #click#{$i}:checked ~ .share-btn a:nth-child(4) span {
-          background: #5c636a;
-          border-color: #5c636a;
-        }
-        .share-btn a:nth-child(4) span {
-          transition-delay: 0.4s;
-        }
-        #click#{$i} {
-          display: none;
-        }
+.share-btn {
+  position: absolute;
+  bottom: 45px;
+  right: 30px;
+  z-index: 1;
+  span {
+    color: #e9fcf8;
+    cursor: pointer;
+  }
+  a span {
+    position: absolute;
+    left: 5px;
+    bottom: 10px;
+    border: 1px solid transparent;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.6s;
+  }
+}
+
+@for $i from 0 through 10 {
+  #click#{$i}:checked ~ .share-btn a span {
+    height: fit-content;
+    width: max-content;
+    font-size: 18px;
+    z-index: 1;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #click#{$i}:checked ~ .share-btn a:nth-child(2) span {
+    bottom: 0px;
+    left: 60px;
+    background: #5c636a;
+    border-color: #5c636a;
+  }
+  #click#{$i}:checked ~ .share-btn a:nth-child(3) span {
+    bottom: 45px;
+    left: 60px;
+    background: #5c636a;
+    border-color: #5c636a;
+    transition-delay: 0.2s;
+  }
+  #click#{$i}:checked ~ .share-btn a:nth-child(4) span {
+    background: #5c636a;
+    border-color: #5c636a;
+    transition-delay: 0.4s;
+  }
+  #click#{$i} {
+    display: none;
+  }
 }
